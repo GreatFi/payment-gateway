@@ -5,11 +5,13 @@ Also utilised Sqlite as the database, SQLALCHEMY's orm for queries, Alembic for 
  
 Utilized webhooks and ngrok to expose my tunnel for testing the webhooks, and depending on the response stripe returns, my database updates accordingly and returns success messages
 Payments authorized are captured automatically by stripe then stripe returns a HttpResponse message to my webhook bearing the status/status code of the operation.
+
 ARCHITECTURE
 ----------------
-Only successful payments can be refunded,if a payment fails, after a while stripe retries but will not charge the card again because of the idempotent nature of the request
+Only successful payments can be refunded,if a payment fails, after a while stripe retries but will not charge the card again because of the idempotent nature of the request.
 Incase of database failures in the refund flow i logged the payment_intent_id so i can easily reconcile payments later on, if errors arise from the refund api call a HttpException is sent to the admin initiating the refund
-The endpoints payments and payments/{id} created were to query the database and fetch the payment objects
+The endpoints payments and payments/{id} created were to query the database and fetch the payment objects.
+
 SETUP INSTRUCTIONS
 ----------------------
 - Install FastAPi,Alembic,stripe
